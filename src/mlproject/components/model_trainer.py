@@ -3,6 +3,7 @@ import sys
 from dataclasses import dataclass
 from urllib.parse import urlparse
 import mlflow
+import dagshub
 import mlflow.sklearn
 import numpy as np
 from sklearn.metrics import mean_squared_error,mean_absolute_error
@@ -116,11 +117,14 @@ class ModelTrainer:
                     actual_model = actual_model + model
 
             best_params = params[actual_model]
+            
+            # mlflow and dagshub           
+            
+            dagshub.init(repo_owner='victordashmohapatra', repo_name='mlproject', mlflow=True)
 
-            mlflow.set_registry_uri("https://dagshub.com/")
+            mlflow.set_registry_uri("https://dagshub.com/victordashmohapatra/mlproject.mlflow")
             tracking_url_type_store = urlparse(mlflow.get_tracking_uri()).scheme
 
-            # mlflow
 
             with mlflow.start_run():
 
