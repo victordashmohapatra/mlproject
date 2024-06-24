@@ -9,4 +9,5 @@ catboost
 xgboost
 mlflow
 dagshub
+flask
 #-e .
